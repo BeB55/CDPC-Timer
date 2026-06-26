@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <title>CDPDC Reloj App</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+
+    <!-- MENÚ PRINCIPAL -->
+    <div id="menu">
+      <h1>CDPDC</h1>
+      <button onclick="mostrar('reloj')">🕐 Reloj</button>
+      <button onclick="mostrar('cronometro')">⏱ Cronómetro</button>
+      <button onclick="mostrar('temporizador')">⏳ Temporizador</button>
+    </div>
+
+    <!-- RELOJ -->
+    <div id="reloj" class="seccion oculto">
+      <h2>Reloj</h2>
+      <div id="reloj-display">00:00:00</div>
+      <button class="btn-volver" onclick="volver()">← Volver</button>
+    </div>
+
+    <!-- CRONÓMETRO -->
+    <div id="cronometro" class="seccion oculto">
+      <h2>Cronómetro</h2>
+      <div id="cronometro-display">00:00:00</div>
+      <div class="controles">
+        <button onclick="iniciarCronometro()">Iniciar</button>
+        <button onclick="pausarCronometro()">Pausar</button>
+        <button onclick="resetearCronometro()">Resetear</button>
+      </div>
+      <button class="btn-volver" onclick="volver()">← Volver</button>
+    </div>
+
+    <!-- TEMPORIZADOR -->
+    <div id="temporizador" class="seccion oculto">
+
+      <!-- BARRA LATERAL -->
+      <div id="sidebar">
+        <div id="sidebar-titulo">Guardados</div>
+        <div id="lista-guardados"></div>
+        <button id="btn-agregar" onclick="agregarTemporizador()">+ Añadir</button>
+      </div>
+
+      <!-- CONTENIDO PRINCIPAL -->
+      <div id="temp-principal">
+
+        <!-- MODO CONFIGURACIÓN -->
+        <div id="temp-config">
+          <h2>Temporizador</h2>
+          <div class="tiempo-editor">
+            <div class="columna-tiempo">
+              <button class="flecha" onclick="ajustarTiempo('temp-m', 1)">▲</button>
+              <span class="tiempo-parte" id="temp-m" contenteditable="true" onblur="validarParte('temp-m', 99)">00</span>
+              <button class="flecha" onclick="ajustarTiempo('temp-m', -1)">▼</button>
+            </div>
+            <span class="separador">:</span>
+            <div class="columna-tiempo">
+              <button class="flecha" onclick="ajustarTiempo('temp-s', 1)">▲</button>
+              <span class="tiempo-parte" id="temp-s" contenteditable="true" onblur="validarParte('temp-s', 59)">00</span>
+              <button class="flecha" onclick="ajustarTiempo('temp-s', -1)">▼</button>
+            </div>
+          </div>
+          <div class="controles">
+            <button onclick="iniciarTemporizador()">Iniciar</button>
+            <button onclick="pausarTemporizador()">Pausar</button>
+            <button onclick="resetearTemporizador()">Resetear</button>
+            <button onclick="iniciarLista()">Lista de reproducción</button>
+
+          </div>
+          <button class="btn-volver" onclick="volver()">← Volver</button>
+        </div>
+
+        <!-- MODO CORRIENDO -->
+        <div id="temp-corriendo" class="oculto">
+          <div id="temp-display-grande">00:00</div>
+        </div>
+
+      </div>
+    </div>
+
+    <script src="app.js"></script>
+  </body>
+</html>
