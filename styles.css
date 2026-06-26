@@ -234,6 +234,16 @@ button:hover {
   overflow-y: auto;
 }
 
+.drag-handle {
+  cursor: grab;
+  margin-right: 8px;
+}
+
+.drag-handle:active {
+  cursor: grabbing;
+}
+
+
 #btn-agregar {
   background-color: transparent;
   border: 2px solid #e94560;
@@ -255,11 +265,18 @@ button:hover {
 .item-guardado {
   background-color: #0f3460;
   border: 1px solid #e94560;
-  border-radius: 8px;
-  padding: 8px 10px;
+  border-radius: 4px;
+  padding: 6px;
+  margin-bottom: 6px;
   cursor: pointer;
   transition: all 0.2s;
   text-align: left;
+}
+
+.item-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .item-guardado:hover {
@@ -273,7 +290,9 @@ button:hover {
 }
 
 .item-tiempo {
-  font-size: 12px;
+  flex-grow: 1;
+  text-align: center;
+  font-weight: bold;
   color: #aaaaaa;
   margin-top: 2px;
 }

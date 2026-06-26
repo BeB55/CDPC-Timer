@@ -166,19 +166,21 @@ function iniciarTemporizador() {
       clearInterval(temporizadorInterval)
       temporizadorInterval = null
       temporizadorCorriendo = false
-      if (display) {
-        display.textContent = '¡Tiempo!'
-        display.classList.remove('critico')
-      }
 
-      // 🔴 NUEVO: avanzar al siguiente en la lista de reproducción
+      //NUEVO: avanzar al siguiente en la lista de reproducción
       if (indiceReproduccion >= 0) {
         indiceReproduccion++
-        if (indiceReproduccion < listaReproduccion.length) {
-          cargarGuardado(listaReproduccion[indiceReproduccion])
-          iniciarTemporizador()
+        if (indiceReproduccion < listaGuardados.length) {
+          setTimeout(() => {
+            cargarGuardado(indiceReproduccion)
+            iniciarTemporizador()
+          }, 1000)
         } else {
           indiceReproduccion = -1 // fin de la lista
+          if (display) {
+            display.textContent = 'Se acabó el tiempo'
+            display.classList.remove('critico')
+          }
         }
       }
     }
@@ -211,15 +213,15 @@ function reanudarTemporizador() {
       temporizadorInterval = null
       temporizadorCorriendo = false
       if (display) {
-        display.textContent = '¡Tiempo!'
+        display.textContent = 'Se acabo el tiempo!'
         display.classList.remove('critico')
       }
 
-      // 🔴 NUEVO: avanzar al siguiente en la lista de reproducción
+      //NUEVO: avanzar al siguiente en la lista de reproducción
       if (indiceReproduccion >= 0) {
         indiceReproduccion++
-        if (indiceReproduccion < listaReproduccion.length) {
-          cargarGuardado(listaReproduccion[indiceReproduccion])
+        if (indiceReproduccion < listaGuardados.length) {
+          cargarGuardado(indiceReproduccion)
           iniciarTemporizador()
         } else {
           indiceReproduccion = -1 // fin de la lista
@@ -282,23 +284,60 @@ function renderizarGuardados() {
 
     const div = document.createElement('div')
     div.className = 'item-guardado'
+    div.setAttribute('draggable', 'true')
+    div.dataset.index = index
     div.innerHTML = `
-  <input type="checkbox" onchange="toggleEnReproduccion(${index}, this)" />
-  <button class="item-borrar" onclick="borrarGuardado(${index})">✕</button>
-  <div class="item-nombre" contenteditable="true" onblur="renombrarGuardado(${index}, this)">${item.nombre}</div>
-  <div class="item-tiempo">${m}:${s}</div>
-`
+      <div class="item-header">
+        <div class="drag-handle" draggable="true">☰</div>
+        <div class="item-tiempo">${m}:${s}</div>
+        <div class="item-actions">
+          <button class="item-borrar" onclick="borrarGuardado(${index})">✕</button>
+        </div>
+      </div>
+      <div class="item-nombre" contenteditable="true" 
+          onblur="renombrarGuardado(${index}, this)">${item.nombre}</div>
+    `
 
+    
     div.addEventListener('click', (e) => {
       if (e.target.classList.contains('item-borrar')) return
       if (e.target.classList.contains('item-nombre')) return
-      if (e.target.type === 'checkbox') return
+      if (e.target.classList.contains('drag-handle')) return
       cargarGuardado(index)
+    })
+
+    const handle = div.querySelector('.drag-handle')
+    handle.addEventListener('dragstart', (e) => {
+      e.dataTransfer.setData('text/plain', index)
+    })
+
+    div.addEventListener('dragover', (e) => {
+      e.preventDefault()
+      div.classList.add('drag-over')
+    })
+
+    div.addEventListener('dragleave', () => {
+      div.classList.remove('drag-over')
+    })
+
+    div.addEventListener('drop', (e) => {
+      e.preventDefault()
+      div.classList.remove('drag-over')
+      const origen = parseInt(e.dataTransfer.getData('text/plain'))
+      const destino = index
+
+      if (origen !== destino) {
+        const item = listaGuardados.splice(origen, 1)[0]
+        listaGuardados.splice(destino, 0, item)
+        guardarEnArchivo(listaGuardados)
+        renderizarGuardados()
+      }
     })
 
     lista.appendChild(div)
   })
 }
+
 
 
 function borrarGuardado(index) {
@@ -327,9 +366,9 @@ function toggleEnReproduccion(index, checkbox) {
 }
 
 function iniciarLista() {
-  if (listaReproduccion.length === 0) return
+  if (listaGuardados.length === 0) return
   indiceReproduccion = 0
-  cargarGuardado(listaReproduccion[indiceReproduccion])
+  cargarGuardado(indiceReproduccion)
   iniciarTemporizador()
 }
 

@@ -2,14 +2,14 @@
 <html lang="es">
   <head>
     <meta charset="UTF-8" />
-    <title>CDPDC Reloj App</title>
+    <title>CDPC Reloj App</title>
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
 
     <!-- MENÚ PRINCIPAL -->
     <div id="menu">
-      <h1>CDPDC</h1>
+      <h1>CDPC</h1>
       <button onclick="mostrar('reloj')">🕐 Reloj</button>
       <button onclick="mostrar('cronometro')">⏱ Cronómetro</button>
       <button onclick="mostrar('temporizador')">⏳ Temporizador</button>
@@ -67,7 +67,10 @@
             <button onclick="iniciarTemporizador()">Iniciar</button>
             <button onclick="pausarTemporizador()">Pausar</button>
             <button onclick="resetearTemporizador()">Resetear</button>
-            <button onclick="iniciarLista()">Lista de reproducción</button>
+            <button onclick="iniciarLista()"
+                   title="Para iniciar la Lista de reproducción, Mueve a tu gusto los temporizadores en la lista de guardados y luego presiona este botón.">
+              Lista de reproducción
+            </button>
 
           </div>
           <button class="btn-volver" onclick="volver()">← Volver</button>
