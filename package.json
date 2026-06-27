@@ -1,19 +1,47 @@
 {
-  "name": "cdpdc-reloj-app",
+  "name": "cdpc-reloj-app",
   "version": "1.0.0",
   "description": "",
   "main": "main.js",
   "scripts": {
     "start": "electron .",
     "build64": "electron-packager . CDPDC-Reloj-App --platform=win32 --arch=x64 --out=dist --overwrite",
-    "build32": "electron-packager . CDPDC-Reloj-App --platform=win32 --arch=ia32 --out=dist --overwrite"
+    "build32": "electron-packager . CDPDC-Reloj-App --platform=win32 --arch=ia32 --out=dist --overwrite",
+    "dist": "electron-builder"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "type": "commonjs",
   "devDependencies": {
-    "electron": "^42.5.0",
+    "electron": "^22.3.27",
+    "electron-builder": "^26.15.3",
     "electron-packager": "^17.1.2"
+  },
+  "build": {
+    "appId": "com.cdpc.reloj",
+    "productName": "CDPC Reloj App",
+    "directories": {
+      "output": "dist"
+    },
+    "files": [
+      "**/*"
+    ],
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64",
+            "ia32"
+          ]
+        }
+      ]
+    },
+    "nsis": {
+      "oneClick": false,
+      "perMachine": true,
+      "allowToChangeInstallationDirectory": true
+    }
   }
 }
