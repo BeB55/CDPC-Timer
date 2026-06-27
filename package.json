@@ -5,7 +5,8 @@
   "main": "main.js",
   "scripts": {
     "start": "electron .",
-    "build": "electron-packager . CDPDC-Reloj-App --platform=win32 --arch=x64 --out=dist --overwrite"
+    "build64": "electron-packager . CDPDC-Reloj-App --platform=win32 --arch=x64 --out=dist --overwrite",
+    "build32": "electron-packager . CDPDC-Reloj-App --platform=win32 --arch=ia32 --out=dist --overwrite"
   },
   "keywords": [],
   "author": "",

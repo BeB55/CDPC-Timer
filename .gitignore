@@ -3,3 +3,4 @@ dist/
 .env
 guardados.json
 package-lock.json
+package.json
