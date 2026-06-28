@@ -336,3 +336,50 @@ button:hover {
   50% { opacity: 0.5; }
   100% { opacity: 1; }
 }
+
+.modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #1a1a2e; /* mismo fondo que la app */
+  color: #ffffff;            /* mismo color de texto */
+  padding: 30px 40px;
+  border: 2px solid #e94560; /* mismo color que títulos/botones */
+  border-radius: 12px;
+  box-shadow: 0 0 20px rgba(0,0,0,0.7);
+  z-index: 1000;
+  text-align: center;
+  max-width: 500px;
+}
+
+.modal h2 {
+  color: #e94560;
+  margin-bottom: 20px;
+  font-size: 24px;
+}
+
+.modal ul {
+  list-style: none;
+  margin-bottom: 20px;
+}
+
+.modal li {
+  margin: 8px 0;
+  font-size: 18px;
+}
+
+.modal button {
+  background-color: #e94560;
+  color: #ffffff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: all 0.2s;
+}
+
+.modal button:hover {
+  background-color: #c73652;
+}

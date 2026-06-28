@@ -182,6 +182,11 @@ function iniciarTemporizador() {
             display.classList.remove('critico')
           }
         }
+      } else {
+        if (display) {
+          display.textContent = 'Se acabó el tiempo'
+          display.classList.remove('critico')
+        }
       }
     }
   }, 1000)
@@ -461,4 +466,24 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     })
   })
+})
+
+function mostrarChangelog() {
+  const modal = document.getElementById('changelog-modal')
+  if (modal) modal.classList.remove('oculto')
+}
+
+function cerrarChangelog() {
+  const modal = document.getElementById('changelog-modal')
+  if (modal) modal.classList.add('oculto')
+  // Guardar que ya se mostró esta versión
+  localStorage.setItem('changelog_v110', 'true')
+}
+
+// Mostrar solo la primera vez
+window.addEventListener('DOMContentLoaded', () => {
+  const visto = localStorage.getItem('changelog_v111')
+  if (!visto) {
+    mostrarChangelog()
+  }
 })
