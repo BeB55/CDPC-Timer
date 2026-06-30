@@ -236,6 +236,28 @@ function reanudarTemporizador() {
   }, 1000)
 }
 
+function siguienteTemporizador() {
+  if (indiceReproduccion >= 0 && indiceReproduccion < listaGuardados.length - 1) {
+    clearInterval(temporizadorInterval)
+    temporizadorInterval = null
+    temporizadorCorriendo = false
+    indiceReproduccion++
+    cargarGuardado(indiceReproduccion)
+    iniciarTemporizador()
+  }
+}
+
+function anteriorTemporizador() {
+  if (indiceReproduccion > 0) {
+    clearInterval(temporizadorInterval)
+    temporizadorInterval = null
+    temporizadorCorriendo = false
+    indiceReproduccion--
+    cargarGuardado(indiceReproduccion)
+    iniciarTemporizador()
+  }
+}
+
 
 function resetearTemporizador() {
   pausarTemporizador()
@@ -411,6 +433,14 @@ document.addEventListener('keydown', (e) => {
     if (e.code === 'KeyR') {
       resetearTemporizador()
     }
+
+    if (e.code === 'ArrowRight') {
+      siguienteTemporizador()
+    }
+
+    if (e.code === 'ArrowLeft') {
+      anteriorTemporizador()
+    }
   }
 
   if (e.code === 'Escape') {
@@ -477,13 +507,19 @@ function cerrarChangelog() {
   const modal = document.getElementById('changelog-modal')
   if (modal) modal.classList.add('oculto')
   // Guardar que ya se mostró esta versión
-  localStorage.setItem('changelog_v110', 'true')
+  localStorage.setItem('changelog_v120', 'true')
 }
 
 // Mostrar solo la primera vez
 window.addEventListener('DOMContentLoaded', () => {
-  const visto = localStorage.getItem('changelog_v111')
+  const visto = localStorage.getItem('changelog_v120')
   if (!visto) {
     mostrarChangelog()
   }
+})
+
+const { ipcRenderer } = require('electron')
+
+ipcRenderer.on('mostrar-changelog', () => {
+  mostrarChangelog()
 })

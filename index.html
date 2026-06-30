@@ -17,9 +17,8 @@
 
     <!-- RELOJ -->
     <div id="reloj" class="seccion oculto">
-      <h2>Reloj</h2>
+      <h2>Hora</h2>
       <div id="reloj-display">00:00:00</div>
-      <button class="btn-volver" onclick="volver()">← Volver</button>
     </div>
 
     <!-- CRONÓMETRO -->
@@ -87,13 +86,15 @@
     <script src="app.js"></script>
 
       <div id="changelog-modal" class="modal oculto">
-    <h2>Novedades v1.1.0</h2>
-    <ul>
-      <li>✔ Corrección del temporizador al correr un reloj normal no terminaba</li>
-      <li>✔ Agregada opción para mostrar el changelog</li>
-    </ul>
+    <h2>Novedades v1.2.0</h2>
+   <ul>
+  <li><span>Se mejoró la interfaz del Reloj, además, se quitó el botón de volver.</span></li>
+  <li><span>Se cambió el título del Reloj a "Hora".</span></li>
+  <li><span>La barra de herramientas superior se oculta y activa presionando la tecla "Alt" o "Option" en Mac.</span></li>
+  <li><span>Se agregaron atajos de teclado para alternar entre temporizadores: "Flecha derecha" para siguiente y "Flecha izquierda" para anterior.</span></li>
+</ul>
+
     <button onclick="cerrarChangelog()">Cerrar</button>
       </div>
-
   </body>
 </html>
